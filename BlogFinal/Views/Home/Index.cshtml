@@ -1,0 +1,43 @@
+﻿@model BlogFinal.Models.HomeViewModels.HomePosts
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+@foreach (var Post in Model.Posts)
+{
+    <div class="card mb-2">
+        <div class="card-body">
+            <div class="card-title">
+                <strong><font size="6">@Post.Title</font></strong>
+                </div>
+                <div id="Date" class="card-text">
+                <p><font size=4>By @Post.UserId on @Post.Created</font></p>
+                @if (Post.Updated != Post.Created)
+                {
+                    <p>Last updated on @Post.Updated</p>
+                }
+            </div>
+            <div class="card-text">
+            <p class="tab">@Post.Body</p>
+            </div>
+            
+            <p>Comments: </p>
+            @if (Model.Comments != null)
+            {
+                @foreach (var Comment in Model.Comments)
+                {
+                    @if (Post.PostId == Comment.PostId)
+                    {
+                        <p>@Comment.Title from @Comment.UserId</p>
+                        <p>@Comment.Body</p>
+                    }
+                }
+            }
+        </div>
+    </div>
+}
